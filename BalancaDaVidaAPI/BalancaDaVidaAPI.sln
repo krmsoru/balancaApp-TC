@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33815.320
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BalancaDaVidaAPI", "BalancaDaVidaAPI.csproj", "{71195D87-1B49-4D77-8B04-CA1877BADFC8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{71195D87-1B49-4D77-8B04-CA1877BADFC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71195D87-1B49-4D77-8B04-CA1877BADFC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71195D87-1B49-4D77-8B04-CA1877BADFC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71195D87-1B49-4D77-8B04-CA1877BADFC8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C8339F0B-B206-4EA7-8E3C-8EA36A6C8474}
+	EndGlobalSection
+EndGlobal
