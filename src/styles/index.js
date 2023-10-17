@@ -25,17 +25,14 @@ const Styles = StyleSheet.create({
         shadowColor: '#7e44b8',
     },
     button: {
-        paddingTop: 15,
-        paddingBottom: 15,
-        paddingLeft: 25,
-        paddingRight: 25,
+        paddingVertical: 15,
+        paddingHorizontal: 25,
+        marginHorizontal: 20,
+        marginVertical: 10,
         borderRadius: 8,
         textAlign: 'center',
         backgroundColor: '#7e44b8',
-        marginHorizontal: 20,
-        marginTop: 5,
-        fontWeight: 'bold',
-        fontSize: 20,
+
     },
     buttonText: {
         fontSize: 20,
@@ -64,10 +61,22 @@ const Styles = StyleSheet.create({
     foodDescription: {
         fontWeight: '700',
         color: 'gray',
-        fontSize: 14,
+        fontSize: 16,
     },
     nutrientText: {
-        fontSize: 12,
+        fontSize: 14,
+    },
+    tagStyles: {
+        backgroundColor: '#7e44b8',
+        paddingHorizontal: 12,
+        paddingVertical: 6,
+        borderRadius: 20,
+        marginRight: 8,
+        marginBottom: 8,
+    },
+    tagTextStyles: {
+        color: '#FFF',
+        fontSize: 16,
     },
 })
 

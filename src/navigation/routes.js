@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Home from '../screens/home/home';
-import Data from '../screens/data/data';
-import Placeholder from '../screens/data/placeholder';
+import Hist from '../screens/hist';
+import Configuration from '../screens/configuration';
 import { Ionicons } from '@expo/vector-icons'
 import { FontAwesome } from '@expo/vector-icons';
 import StylesApp from '../styles';
@@ -12,31 +12,32 @@ const Styles = StylesApp();
 export function Routes() {
     return (
         <Tab.Navigator>
+
             <Tab.Screen
                 name='Inicio'
                 component={Home}
                 options={{
 
                     tabBarShowLabel: false,
-                    headerShown: true,
+                    headerShown: false,
                     tabBarIcon: ({ color, size }) => <Ionicons size={size} color={color} name='home' />
                 }}
             />
             <Tab.Screen
                 name='Data'
-                component={Data}
+                component={Hist}
                 options={{
                     tabBarShowLabel: false,
-                    headerShown: true,
+                    headerShown: false,
                     tabBarIcon: ({ color, size }) => <FontAwesome name="line-chart" color={color} size={size} />
                 }}
             />
             <Tab.Screen
                 name='Configuração'
-                component={Placeholder}
+                component={Configuration}
                 options={{
                     tabBarShowLabel: false,
-                    headerShown: true,
+                    headerShown: false,
                     tabBarIcon: ({ color, size }) => <FontAwesome name="cog" color={color} size={size} />
                 }}
             />

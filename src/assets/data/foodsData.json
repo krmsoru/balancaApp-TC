@@ -1,0 +1,112 @@
+[
+    {
+        "id": 1,
+        "nome": "Carne",
+        "descricao": "Uma fonte rica em proteínas.",
+        "nutrientes": {
+            "calorias": 20,
+            "sodio": 45,
+            "gorduras": 77,
+            "proteinas": 8
+        }
+    },
+    {
+        "id": 2,
+        "nome": "Ovo",
+        "descricao": "Uma boa fonte de proteína e vitaminas.",
+        "nutrientes": {
+            "calorias": 30,
+            "sodio": 60,
+            "gorduras": 50,
+            "proteinas": 5
+        }
+    },
+    {
+        "id": 3,
+        "nome": "Arroz",
+        "descricao": "Um grão básico com carboidratos.",
+        "nutrientes": {
+            "calorias": 130,
+            "sodio": 0,
+            "gorduras": 0.3,
+            "proteinas": 2.7
+        }
+    },
+    {
+        "id": 4,
+        "nome": "Feijão",
+        "descricao": "Uma ótima fonte de proteína vegetal.",
+        "nutrientes": {
+            "calorias": 80,
+            "sodio": 1,
+            "gorduras": 0.5,
+            "proteinas": 5.5
+        }
+    },
+    {
+        "id": 5,
+        "nome": "Maçã",
+        "descricao": "Uma fruta rica em fibras e vitaminas.",
+        "nutrientes": {
+            "calorias": 52,
+            "sodio": 1,
+            "gorduras": 0.2,
+            "proteinas": 0.3
+        }
+    },
+    {
+        "id": 6,
+        "nome": "Banana",
+        "descricao": "Uma fruta rica em potássio e carboidratos.",
+        "nutrientes": {
+            "calorias": 89,
+            "sodio": 1,
+            "gorduras": 0.3,
+            "proteinas": 1.1
+        }
+    },
+    {
+        "id": 7,
+        "nome": "Espinafre",
+        "descricao": "Uma folha verde rica em ferro e vitaminas.",
+        "nutrientes": {
+            "calorias": 23,
+            "sodio": 79,
+            "gorduras": 0.4,
+            "proteinas": 2.9
+        }
+    },
+    {
+        "id": 8,
+        "nome": "Tomate",
+        "descricao": "Um fruto com vitaminas e antioxidantes.",
+        "nutrientes": {
+            "calorias": 18,
+            "sodio": 5,
+            "gorduras": 0.2,
+            "proteinas": 0.9
+        }
+    },
+    {
+        "id": 9,
+        "nome": "Pão",
+        "descricao": "Uma fonte comum de carboidratos.",
+        "nutrientes": {
+            "calorias": 265,
+            "sodio": 432,
+            "gorduras": 3.1,
+            "proteinas": 9.4
+        }
+    },
+    {
+        "id": 10,
+        "nome": "Queijo",
+        "descricao": "Um produto lácteo rico em cálcio e proteínas.",
+        "nutrientes": {
+            "calorias": 402,
+            "sodio": 621,
+            "gorduras": 33,
+            "proteinas": 25
+        }
+    }
+]

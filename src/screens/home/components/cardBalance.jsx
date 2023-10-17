@@ -37,7 +37,7 @@ export default function Balance({ connectionStatus }) {
     return (
         <View>
             <View style={[Styles.card, Styles.elevation]}>
-                <Text style={Styles.heading}>Balança</Text>
+                {/* <Text style={Styles.heading}>Balança</Text> */}
                 {setBalanceVisible()}
             </View>
         </View>
