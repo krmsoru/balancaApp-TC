@@ -3,110 +3,160 @@
         "id": 1,
         "nome": "Carne",
         "descricao": "Uma fonte rica em proteínas.",
-        "nutrientes": {
-            "calorias": 20,
-            "sodio": 45,
-            "gorduras": 77,
-            "proteinas": 8
-        }
+        "calorias": 127.4,
+        "tamanho_procao_g": 100,
+        "gordura_total_g": 0.3,
+        "gordura_saturada_g": 0.1,
+        "proteina_g": 2.7,
+        "sodio_mg": 1,
+        "potassio_mg": 42,
+        "colesterol_mg": 0,
+        "carboidratos_total_g": 28.4,
+        "fibra_g": 0.4,
+        "acucar_g": 0.1
     },
     {
         "id": 2,
-        "nome": "Ovo",
-        "descricao": "Uma boa fonte de proteína e vitaminas.",
-        "nutrientes": {
-            "calorias": 30,
-            "sodio": 60,
-            "gorduras": 50,
-            "proteinas": 5
-        }
+        "nome": "Maçã",
+        "descricao": "Uma fruta fresca e saudável.",
+        "calorias": 52.0,
+        "tamanho_procao_g": 182,
+        "gordura_total_g": 0.2,
+        "gordura_saturada_g": 0.0,
+        "proteina_g": 0.3,
+        "sodio_mg": 1,
+        "potassio_mg": 107,
+        "colesterol_mg": 0,
+        "carboidratos_total_g": 14.0,
+        "fibra_g": 2.4,
+        "acucar_g": 10.4
     },
     {
         "id": 3,
         "nome": "Arroz",
-        "descricao": "Um grão básico com carboidratos.",
-        "nutrientes": {
-            "calorias": 130,
-            "sodio": 0,
-            "gorduras": 0.3,
-            "proteinas": 2.7
-        }
+        "descricao": "Um grão básico em muitas cozinhas.",
+        "calorias": 130.0,
+        "tamanho_procao_g": 100,
+        "gordura_total_g": 0.3,
+        "gordura_saturada_g": 0.1,
+        "proteina_g": 2.7,
+        "sodio_mg": 1,
+        "potassio_mg": 35,
+        "colesterol_mg": 0,
+        "carboidratos_total_g": 28.7,
+        "fibra_g": 0.4,
+        "acucar_g": 0.1
     },
     {
         "id": 4,
-        "nome": "Feijão",
-        "descricao": "Uma ótima fonte de proteína vegetal.",
-        "nutrientes": {
-            "calorias": 80,
-            "sodio": 1,
-            "gorduras": 0.5,
-            "proteinas": 5.5
-        }
+        "nome": "Salada",
+        "descricao": "Uma mistura refrescante de vegetais.",
+        "calorias": 15.0,
+        "tamanho_procao_g": 100,
+        "gordura_total_g": 0.2,
+        "gordura_saturada_g": 0.0,
+        "proteina_g": 1.2,
+        "sodio_mg": 5,
+        "potassio_mg": 135,
+        "colesterol_mg": 0,
+        "carboidratos_total_g": 3.6,
+        "fibra_g": 1.3,
+        "acucar_g": 2.1
     },
     {
         "id": 5,
-        "nome": "Maçã",
-        "descricao": "Uma fruta rica em fibras e vitaminas.",
-        "nutrientes": {
-            "calorias": 52,
-            "sodio": 1,
-            "gorduras": 0.2,
-            "proteinas": 0.3
-        }
+        "nome": "Leite",
+        "descricao": "Uma fonte rica de cálcio.",
+        "calorias": 42.0,
+        "tamanho_procao_g": 244,
+        "gordura_total_g": 1.2,
+        "gordura_saturada_g": 0.8,
+        "proteina_g": 3.4,
+        "sodio_mg": 44,
+        "potassio_mg": 148,
+        "colesterol_mg": 12,
+        "carboidratos_total_g": 4.8,
+        "fibra_g": 0,
+        "acucar_g": 5.1
     },
     {
         "id": 6,
-        "nome": "Banana",
-        "descricao": "Uma fruta rica em potássio e carboidratos.",
-        "nutrientes": {
-            "calorias": 89,
-            "sodio": 1,
-            "gorduras": 0.3,
-            "proteinas": 1.1
-        }
+        "nome": "Ovos",
+        "descricao": "Uma excelente fonte de proteína.",
+        "calorias": 155.0,
+        "tamanho_procao_g": 100,
+        "gordura_total_g": 11.0,
+        "gordura_saturada_g": 3.3,
+        "proteina_g": 13.0,
+        "sodio_mg": 124,
+        "potassio_mg": 126,
+        "colesterol_mg": 373,
+        "carboidratos_total_g": 1.1,
+        "fibra_g": 0,
+        "acucar_g": 1.1
     },
     {
         "id": 7,
-        "nome": "Espinafre",
-        "descricao": "Uma folha verde rica em ferro e vitaminas.",
-        "nutrientes": {
-            "calorias": 23,
-            "sodio": 79,
-            "gorduras": 0.4,
-            "proteinas": 2.9
-        }
+        "nome": "Pão",
+        "descricao": "Um alimento básico em muitas culturas.",
+        "calorias": 265.0,
+        "tamanho_procao_g": 100,
+        "gordura_total_g": 4.0,
+        "gordura_saturada_g": 0.7,
+        "proteina_g": 9.4,
+        "sodio_mg": 482,
+        "potassio_mg": 89,
+        "colesterol_mg": 0,
+        "carboidratos_total_g": 49.0,
+        "fibra_g": 2.2,
+        "acucar_g": 5.0
     },
     {
         "id": 8,
-        "nome": "Tomate",
-        "descricao": "Um fruto com vitaminas e antioxidantes.",
-        "nutrientes": {
-            "calorias": 18,
-            "sodio": 5,
-            "gorduras": 0.2,
-            "proteinas": 0.9
-        }
+        "nome": "Peixe",
+        "descricao": "Uma excelente fonte de ômega-3.",
+        "calorias": 206.0,
+        "tamanho_procao_g": 100,
+        "gordura_total_g": 12.6,
+        "gordura_saturada_g": 2.5,
+        "proteina_g": 20.2,
+        "sodio_mg": 45,
+        "potassio_mg": 410,
+        "colesterol_mg": 73,
+        "carboidratos_total_g": 0,
+        "fibra_g": 0,
+        "acucar_g": 0
     },
     {
         "id": 9,
-        "nome": "Pão",
-        "descricao": "Uma fonte comum de carboidratos.",
-        "nutrientes": {
-            "calorias": 265,
-            "sodio": 432,
-            "gorduras": 3.1,
-            "proteinas": 9.4
-        }
+        "nome": "Banana",
+        "descricao": "Uma fruta deliciosa e nutritiva.",
+        "calorias": 89.0,
+        "tamanho_procao_g": 225,
+        "gordura_total_g": 0.3,
+        "gordura_saturada_g": 0.1,
+        "proteina_g": 1.1,
+        "sodio_mg": 1,
+        "potassio_mg": 358,
+        "colesterol_mg": 0,
+        "carboidratos_total_g": 23.5,
+        "fibra_g": 2.6,
+        "acucar_g": 12.2
     },
     {
         "id": 10,
-        "nome": "Queijo",
-        "descricao": "Um produto lácteo rico em cálcio e proteínas.",
-        "nutrientes": {
-            "calorias": 402,
-            "sodio": 621,
-            "gorduras": 33,
-            "proteinas": 25
-        }
+        "nome": "Aveia",
+        "descricao": "Um grão saudável e nutritivo.",
+        "calorias": 389.0,
+        "tamanho_procao_g": 100,
+        "gordura_total_g": 6.9,
+        "gordura_saturada_g": 1.2,
+        "proteina_g": 16.9,
+        "sodio_mg": 2,
+        "potassio_mg": 429,
+        "colesterol_mg": 0,
+        "carboidratos_total_g": 66.3,
+        "fibra_g": 10.6,
+        "acucar_g": 0.8
     }
 ]

@@ -22,16 +22,18 @@ const Styles = StyleSheet.create({
     },
     elevation: {
         elevation: 20,
-        shadowColor: '#7e44b8',
+        shadowColor: '#007AFF',
+        // shadowColor: '#7e44b8',
     },
     button: {
-        paddingVertical: 15,
-        paddingHorizontal: 25,
-        marginHorizontal: 20,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        marginHorizontal: 15,
         marginVertical: 10,
         borderRadius: 8,
         textAlign: 'center',
-        backgroundColor: '#7e44b8',
+        // backgroundColor: '#7e44b8',
+        backgroundColor: '#007AFF',
 
     },
     buttonText: {
@@ -47,12 +49,15 @@ const Styles = StyleSheet.create({
         color: '#f34',
     },
     radioButtonContainer: {
+        width: '100%',
+        padding: 10,
         borderRadius: 8,
         backgroundColor: '#fff',
         flexDirection: 'row',
         alignItems: 'center',
-        marginVertical: 10,
-        elevation: 5,
+        marginVertical: 2,
+        borderColor: '#e6e6e6',
+        borderWidth: 2
     },
     foodName: {
         fontWeight: 'bold',
@@ -67,7 +72,8 @@ const Styles = StyleSheet.create({
         fontSize: 14,
     },
     tagStyles: {
-        backgroundColor: '#7e44b8',
+        // backgroundColor: '#7e44b8',
+        backgroundColor: '#007AFF',
         paddingHorizontal: 12,
         paddingVertical: 6,
         borderRadius: 20,
@@ -78,6 +84,11 @@ const Styles = StyleSheet.create({
         color: '#FFF',
         fontSize: 16,
     },
+    searchInput: {
+        padding: 5,
+        fontSize: 14,
+        borderRadius: 8,
+    }
 })
 
 

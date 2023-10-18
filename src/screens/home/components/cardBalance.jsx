@@ -1,10 +1,10 @@
 // Balance.js
 import React, { useState } from 'react';
-import { View, Text} from 'react-native';
+import { View, Text } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import StylesApp from '../../../styles';
 
-export default function Balance({ connectionStatus }) {
+export default function CardBalance({ connectionStatus }) {
 
     const [weightValue, setWeightValue] = useState(0);
     const [weightNotation, setWeightNotation] = useState('g');
@@ -13,32 +13,24 @@ export default function Balance({ connectionStatus }) {
         setWeightValue(weight);
     };
 
-    const setBalanceVisible = () => {
-        if (connectionStatus) {
-            return (
-                <View>
-                    <View style={{ alignItems: 'center' }}>
-                        <Text style={[Styles.heading, { fontSize: 50 }]}>
-                            {weightValue} {weightNotation}
-                        </Text>
-                    </View>
-
-                </View>
-            );
-        } else {
-            return (
-                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                    <Text style={[Styles.heading, { color: '#ededed' }]}>Sem conexão</Text>
-                    <MaterialIcons name="bluetooth-disabled" size={50} color="#ededed" />
-                </View>
-            );
-        }
-    };
     return (
         <View>
-            <View style={[Styles.card, Styles.elevation]}>
-                {/* <Text style={Styles.heading}>Balança</Text> */}
-                {setBalanceVisible()}
+            <View style={[Styles.card, Styles.elevation,{Height:'20%'}]}>
+                {connectionStatus ? (
+                    <View>
+                        <View style={{ alignItems: 'center' }}>
+                            <Text style={[Styles.heading, { fontSize: 50 }]}>
+                                {weightValue} {weightNotation}
+                            </Text>
+                        </View>
+
+                    </View>
+                ) : (
+                    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                        <Text style={[Styles.heading, { color: '#ededed' }]}>Sem conexão</Text>
+                        <MaterialIcons name="bluetooth-disabled" size={50} color="#ededed" />
+                    </View>
+                )}
             </View>
         </View>
     );
