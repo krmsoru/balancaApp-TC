@@ -1,39 +1,37 @@
 // Balance.js
-import React, { useState } from 'react';
-import { View, Text } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
-import StylesApp from '../../../styles';
+import React, { useState } from "react";
+import { View, Text } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
 
 export default function CardBalance({ connectionStatus }) {
+  const [weightValue, setWeightValue] = useState(0);
+  const [weightNotation, setWeightNotation] = useState("g");
+  const updateWeight = (weight) => {
+    setWeightNotation(weight > 1000 ? "kg" : "g");
+    setWeightValue(weight);
+  };
 
-    const [weightValue, setWeightValue] = useState(0);
-    const [weightNotation, setWeightNotation] = useState('g');
-    const updateWeight = (weight) => {
-        setWeightNotation(weight > 1000 ? 'kg' : 'g');
-        setWeightValue(weight);
-    };
-
-    return (
-        <View>
-            <View style={[Styles.card, Styles.elevation,{Height:'20%'}]}>
-                {connectionStatus ? (
-                    <View>
-                        <View style={{ alignItems: 'center' }}>
-                            <Text style={[Styles.heading, { fontSize: 50 }]}>
-                                {weightValue} {weightNotation}
-                            </Text>
-                        </View>
-
-                    </View>
-                ) : (
-                    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                        <Text style={[Styles.heading, { color: '#ededed' }]}>Sem conexão</Text>
-                        <MaterialIcons name="bluetooth-disabled" size={50} color="#ededed" />
-                    </View>
-                )}
-            </View>
-        </View>
-    );
+  return (
+    <View className="rounded-lg bg-white p-10 m-4 shadow-lg shadow-blue-600">
+      <View className="m-auto">
+        {connectionStatus ? (
+          <View className="flex-row items-center">
+            <Text className="text-6xl font-medium">{weightValue}</Text>
+            <Text className="text-6xl">{weightNotation}</Text>
+          </View>
+        ) : (
+          <View className="items-center">
+            <Text className="text-3xl font-medium leading-tight text-neutral-100">
+              Sem conexão
+            </Text>
+            <MaterialIcons
+              name="bluetooth-disabled"
+              size={50}
+              color="#efefef"
+            />
+          </View>
+        )}
+      </View>
+    </View>
+  );
 }
-
-const Styles = StylesApp();
