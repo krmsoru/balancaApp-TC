@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@config-plugins/react-native-ble-plx": "^7.0.0",
-    "@shopify/react-native-skia": "0.1.196",
     "eas-cli": "^5.7.0",
     "expo": "~49.0.15",
     "expo-dev-client": "~2.4.12",

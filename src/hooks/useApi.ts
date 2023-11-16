@@ -1,24 +1,19 @@
-async function fetchData(value: string): Promise<any> {
-  const url = `https://apibalancadavida.azurewebsites.net/api/Food/ByName/${value}`;
-
-  try {
-    const response = await fetch(url);
-    const data = await response.text();
-    return data;
-  } catch (error) {
-    console.error("Erro na requisição:", error);
-    throw error;
+function useFoodsApi() {
+  function FetchFoodData(value: string) {
+    const url = `https://apibalancadavida.azurewebsites.net/api/Food/ByName/${value}`;
+    return fetchAsync(url);
   }
+
+  async function fetchAsync(url: string) {
+    var resposta = await fetch(url);
+    if (resposta.ok) {
+      return await resposta.text();
+    } else {
+      return "Erro na API";
+    }
+  }
+
+  return { FetchFoodData };
 }
 
-// Exemplo de uso
-export default async function useApi(value: string) {
-  try {
-    const data = await fetchData(value);
-    console.log("Dados da API:", data);
-    return data;
-  } catch (error) {
-    console.error("Erro no exemplo principal:", error);
-    return;
-  }
-}
+export default useFoodsApi;

@@ -1,7 +1,14 @@
-import React from "react";
-import { FlatList, View, Text, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import {
+  FlatList,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 
-interface FoodItem {
+interface foodData {
   id: string;
   nome: string;
   descricao: string;
@@ -21,46 +28,64 @@ interface FoodItem {
   poliinsaturados_g: string;
 }
 
-interface FoodListProps {
-  data: FoodItem[];
-}
+type ItemProps = {
+  item: foodData;
+  onPress: () => void;
+  backgroundColor: string;
+  textColor: string;
+};
 
-const FoodList: React.FC<FoodListProps> = ({ data }) => {
-  const renderItem = ({ item }: { item: FoodItem }) => (
-    <View style={styles.itemContainer}>
-      <Text style={styles.title}>{item.nome}</Text>
-      <Text style={styles.subtitle}>{item.descricao}</Text>
-    </View>
-  );
+const Item = ({ item, onPress, backgroundColor, textColor }: ItemProps) => (
+  <TouchableOpacity
+    onPress={onPress}
+    style={[styles.item, { backgroundColor }]}
+  >
+    <Text style={[styles.title, { color: textColor }]}>{item.nome}</Text>
+  </TouchableOpacity>
+);
+
+const FoodDataList = ({ data = [] }) => {
+  const [selectedId, setSelectedId] = useState<string>();
+
+  const renderItem = ({ item }: { item: foodData }) => {
+    const backgroundColor = item.id === selectedId ? "#6e3b6e" : "#f9c2ff";
+    const color = item.id === selectedId ? "white" : "black";
+
+    return (
+      <Item
+        item={item}
+        onPress={() => setSelectedId(item.id)}
+        backgroundColor={backgroundColor}
+        textColor={color}
+      />
+    );
+  };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <FlatList
         data={data}
-        keyExtractor={(item) => item.id}
         renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+        extraData={selectedId}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 20,
+    marginTop: StatusBar.currentHeight || 0,
   },
-  itemContainer: {
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-    padding: 10,
+  item: {
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
   },
   title: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  subtitle: {
-    fontSize: 16,
+    fontSize: 32,
   },
 });
 
-export default FoodList;
+export default FoodDataList;
