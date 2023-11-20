@@ -17,16 +17,17 @@ const style = StyleSheet.create({
     textAlign: "center",
     color: theme.secodaryColor,
   },
+  // -----------------------------------NOVO-------------------------------
   Input: {
     marginVertical: 10,
     marginHorizontal: 20,
     paddingVertical: 10,
     paddingHorizontal: 20,
-    borderBottomWidth: 2,
-    borderBottomColor: theme.primaryColor,
+    borderBottomWidth: 3,
+    borderBottomColor: theme.secodaryColor,
     borderRadius: 6,
     fontSize: 20,
-    fontWeight: "500",
+    fontWeight: "900",
     color: theme.primaryColor,
   },
   container: {
@@ -39,31 +40,33 @@ const style = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20,
     color: theme.primaryColor,
+    paddingHorizontal: 10,
   },
+
+  itemSubTitle: {
+    fontWeight: "bold",
+    fontSize: 20,
+    color: theme.secodaryColor,
+    paddingHorizontal: 10,
+  },
+
   item: {
     flex: 1,
-    borderRadius: 6,
-    padding: 20,
+    borderRadius: 12,
     borderColor: theme.primaryColor,
     marginBottom: 10,
-    marginHorizontal: 2,
+    marginHorizontal: 20,
+    backgroundColor: theme.neutralColor,
   },
-  innerItem: {
-    flex: 1,
-    flexShrink: 1,
-    flexGrow: 1,
-    backgroundColor: theme.thirdaryColor,
-    padding: 6,
-    marginTop: 4,
-    borderRadius: 6,
-    justifyContent: "space-between",
+  itemContainer: {
     flexDirection: "row",
-    flexWrap: "wrap",
-  },
-  innerItemText: {
-    color: theme.secodaryColor,
-    fontSize: 14,
-    fontWeight: "bold",
+    flex: 1,
+    justifyContent: "space-between",
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    backgroundColor: theme.primaryColor,
+    borderBottomLeftRadius: 8,
+    borderBottomRightRadius: 8,
   },
 });
 

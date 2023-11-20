@@ -11,12 +11,11 @@ const style = StyleSheet.create({
     borderRadius: 12,
     marginHorizontal: 10,
     marginVertical: 5,
-    backgroundColor: theme.thirdaryColor,
+    backgroundColor: theme.neutralColor,
     paddingVertical: 10,
     flexShrink: 1,
     flexGrow: 1,
-    elevation:3
-
+    elevation: 3,
   },
   titleWrapper: {
     flex: 1,
@@ -37,6 +36,30 @@ const style = StyleSheet.create({
     fontWeight: "bold",
     paddingVertical: 30,
     color: theme.primaryColor,
+  },
+  text: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: theme.thirdaryColor,
+  },
+  nutrients: {
+    flexDirection: "row",
+    backgroundColor: theme.primaryColor,
+    paddingHorizontal: 20,
+    paddingVertical: 5,
+    borderTopLeftRadius: 4,
+    borderTopRightRadius: 4,
+    borderBottomLeftRadius: 12,
+    borderBottomRightRadius: 12,
+  },
+  item: {
+    backgroundColor: theme.neutralColor,
+    elevation: 100,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: theme.primaryColor,
+    borderBottomLeftRadius: 12,
+    borderBottomRightRadius: 12,
   },
 });
 

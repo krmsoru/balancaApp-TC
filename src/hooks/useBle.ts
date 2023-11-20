@@ -1,5 +1,5 @@
 /* eslint-disable no-bitwise */
-import { useMemo, useState } from "react";
+import { Dispatch, SetStateAction, useMemo, useState } from "react";
 import { PermissionsAndroid, Platform } from "react-native";
 import {
   BleError,
@@ -13,7 +13,8 @@ import * as ExpoDevice from "expo-device";
 import base64 from "react-native-base64";
 
 const UUID = "4298cd96-8280-11ee-b962-0242ac120002";
-const CHARACTERISTIC = "4298d67e-8280-11ee-b962-0242ac120002";
+const CHARACTERISTIC_REQUEST = "4298d03e-8280-11ee-b962-0242ac120002";
+const CHARACTERISTIC_RESPONSE = "4298d67e-8280-11ee-b962-0242ac120002";
 
 interface BluetoothLowEnergyApi {
   requestPermissions(): Promise<boolean>;
@@ -23,6 +24,7 @@ interface BluetoothLowEnergyApi {
   connectedDevice: Device | null;
   allDevices: Device[];
   weightValue: number;
+  postRequest: (deviceid:Device)=> void;
 }
 
 function useBLE(): BluetoothLowEnergyApi {
@@ -30,6 +32,7 @@ function useBLE(): BluetoothLowEnergyApi {
   const [allDevices, setAllDevices] = useState<Device[]>([]);
   const [connectedDevice, setConnectedDevice] = useState<Device | null>(null);
   const [weightValue, setWeightValue] = useState<number>(0);
+  const [response, setResponse] = useState<string>("");
 
   const requestAndroid31Permissions = async () => {
     const bluetoothScanPermission = await PermissionsAndroid.request(
@@ -141,19 +144,12 @@ function useBLE(): BluetoothLowEnergyApi {
         console.log("No Data was received");
         return -1;
       }
-
-      // Decodifica os dados da característica BLE
       const weightData: string = base64.decode(characteristic.value);
-
-      // Converte a string de peso para um número
       const weightValue: number = parseFloat(weightData);
 
-      // Verifica se a conversão foi bem-sucedida
       if (!isNaN(weightValue)) {
-        // Faça algo com o valor de peso, como exibi-lo no console
         console.log("Weight value received:", weightValue);
 
-        // Aqui você pode chamar uma função para lidar com o valor de peso, por exemplo:
         setWeightValue(weightValue);
       } else {
         console.error("Invalid weight data received:", weightData);
@@ -163,10 +159,29 @@ function useBLE(): BluetoothLowEnergyApi {
     }
   };
 
+  const postRequest = (device:Device)=>{
+    try {
+      if(device){
+        device.writeCharacteristicWithResponseForService(
+          UUID,
+          CHARACTERISTIC_REQUEST,
+          base64.encode('G')
+        ).then((Characteristic:Characteristic)=>console.log(Characteristic.value))
+      }
+    } catch (error) {
+        console.log("Erro ao enviar resposta")
+      
+    }
+  }
+
   const startStreamingData = async (device: Device) => {
     try {
       if (device) {
-        device.monitorCharacteristicForService(UUID, CHARACTERISTIC, onUpdate);
+        device.monitorCharacteristicForService(
+          UUID,
+          CHARACTERISTIC_RESPONSE,
+          onUpdate
+        );
       } else {
         console.log("Nenhum Dispositivo Conectado");
       }
@@ -183,6 +198,7 @@ function useBLE(): BluetoothLowEnergyApi {
     connectedDevice,
     disconnectFromDevice,
     weightValue: weightValue,
+    postRequest
   };
 }
 

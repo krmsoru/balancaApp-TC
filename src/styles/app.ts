@@ -1,8 +1,8 @@
 const theme = {
-  primaryColor: "#FF6060",
-  secodaryColor: "#222831",
-  thirdaryColor: "#f0f0f0",
-  neutralColor: "#f2f2f2",
+  primaryColor: "#0766AD",
+  secodaryColor: "#29ADB2",
+  thirdaryColor: "#C5E898",
+  neutralColor: "#F3F3F3",
 };
 
 export default theme;

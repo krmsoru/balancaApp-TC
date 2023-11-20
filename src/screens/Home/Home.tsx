@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Alert, ScrollView, Text, View } from "react-native";
 import DeviceModal from "../../modal/DeviceModal/DeviceConnectionModal";
 import FoodModal from "../../modal/SearchModal";
@@ -7,7 +7,7 @@ import TagList from "../../components/TagList";
 import Button from "../../components/Button";
 import style from "./styles";
 import { Feather } from "@expo/vector-icons";
-import { foodData, fooditem } from "../../types";
+import { itemData, foodData } from "../../types";
 
 const Home = () => {
   const {
@@ -18,14 +18,14 @@ const Home = () => {
     connectedDevice,
     weightValue,
     disconnectFromDevice,
+    postRequest
   } = useBLE();
 
   const [isDeviceModalVisible, setIsDeviceModalVisible] =
     useState<boolean>(false);
   const [isFoodModalVisible, setIsFoodModalVisible] = useState<boolean>(false);
-
-  const [Data, setData] = useState<foodData[]>(fooditem);
-
+  const [Data, setData] = useState<any[]>([]);
+  // const weightValue = 234;
   const scanForDevices = async () => {
     const isPermissionsEnabled = await requestPermissions();
     if (isPermissionsEnabled) {
@@ -48,14 +48,67 @@ const Home = () => {
   const openFoodModal = () => {
     setIsFoodModalVisible(true);
   };
-  const handleItem = (item: foodData) => {
-    if (item.id != null) {
-      console.log("[  ENTREOU ->  ADDITEM]");
-      const newData = [...Data, item];
+  const handleItem = (obj: itemData) => {
+    if (obj.id != undefined) {
+      const data = Data.filter((item) => item.id !== obj.id);
+      const Item = nutrientsMath(obj, weightValue);
+      const newData = [...data, Item];
       setData(newData);
       hideFoodModal();
     }
   };
+  const nutrientsMath = (item: itemData, peso: number) => {
+    const nutrients = (itemProperty: string) => {
+      if (!Number.isNaN(Number(itemProperty))) {
+        return ((Number(itemProperty) * peso) / 100).toFixed(2);
+      } else {
+        return itemProperty;
+      }
+    };
+
+    const res = {
+      id: item?.id,
+      peso: peso,
+      nome: item?.nome,
+      descricao: item?.descricao,
+      umidade: nutrients(item?.umidade),
+      energia_kcal: nutrients(item?.energia_kcal),
+      proteina_g: nutrients(item?.proteina_g),
+      colesterol_mg: nutrients(item?.colesterol_mg),
+      carboidrato_g: nutrients(item?.carboidrato_g),
+      fibra_g: nutrients(item?.fibra_g),
+      calcio_mg: nutrients(item?.calcio_mg),
+      ferro_mg: nutrients(item?.ferro_mg),
+      sodio_mg: nutrients(item?.sodio_mg),
+      potassio_mg: nutrients(item?.potassio_mg),
+      vitaminaC_mg: nutrients(item?.vitaminaC_mg),
+      saturados_g: nutrients(item?.saturados_g),
+      monoinsaturados_g: nutrients(item?.monoinsaturados_g),
+      poliinsaturados_g: nutrients(item?.poliinsaturados_g),
+    };
+    return res;
+  };
+
+  class Timer {
+    private timerId: NodeJS.Timeout | null = null;
+
+    startTimer(duration: number, callback: () => void) {
+      this.timerId = setTimeout(() => {
+        callback();
+        this.stopTimer();
+      }, duration);
+    }
+
+    stopTimer() {
+      if (this.timerId !== null) {
+        clearTimeout(this.timerId);
+        this.timerId = null;
+        console.log("Timer stopped.");
+      } else {
+        console.log("No timer is currently running.");
+      }
+    }
+  }
 
   return (
     <View style={style.container}>
@@ -65,7 +118,7 @@ const Home = () => {
           <View style={{ alignItems: "center" }}>
             {connectedDevice ? (
               <>
-                <Text style={style.titleText}>Peso:</Text>
+                <Text style={style.titleText}>VALOR RECEBIDO</Text>
                 <View style={{ flexDirection: "row" }}>
                   <Text style={style.Text}>{weightValue} </Text>
                   <Text style={style.Text}>
@@ -90,11 +143,28 @@ const Home = () => {
               </View>
             )}
           </View>
-          <Button
-            title={connectedDevice ? "Desconectar" : "Conectar"}
-            onPress={connectedDevice ? disconnectFromDevice : openDeviceModal}
-            btnclass={1}
-          ></Button>
+          <View style={connectedDevice ? { flexDirection: "row" } : {}}>
+            <View style={connectedDevice ? { width: "50%" } : {}}>
+              <Button
+                title={connectedDevice ? "Desconectar" : "Conectar"}
+                onPress={
+                  connectedDevice ? disconnectFromDevice : openDeviceModal
+                }
+                btnclass={connectedDevice ? 2 : 1}
+              />
+            </View>
+            <View style={connectedDevice ? { width: "50%" } : {}}>
+              {connectedDevice ? (
+                <Button
+                  btnclass={1}
+                  onPress={() => postRequest(connectedDevice)}
+                  title="Calibrar"
+                />
+              ) : (
+                <Text></Text>
+              )}
+            </View>
+          </View>
           <DeviceModal
             closeModal={hideDeviceModal}
             visible={isDeviceModalVisible}
@@ -104,66 +174,36 @@ const Home = () => {
         </View>
       </View>
       {/* ----------------- ALIMENTOS--------------------- */}
-      <View style={style.card}>
-        <Button title="Alimentos" onPress={openFoodModal} btnclass={2}></Button>
+      {connectedDevice ? (
+        <View style={style.card}>
+          <Button
+            title="Alimentos"
+            onPress={openFoodModal}
+            btnclass={1}
+          ></Button>
 
-        <TagList
-          data={Data}
-          onLongPress={(item) => {
-            const newData = Data.filter((obj) => obj.id !== item.id);
-            setData(newData);
-            console.log(Data);
-          }}
-        />
-
-        <ScrollView style={{ flex: 1 }}>
-          <View
-            style={{
-              marginHorizontal: 1,
-              alignItems: "center",
-              flexDirection: "row",
-              justifyContent: "space-evenly",
+          <TagList
+            data={Data}
+            onLongPress={(item) => {
+              const newData = Data.filter((obj) => obj.id !== item.id);
+              setData(newData);
             }}
-          >
-            <View>
-              <Text>Energia (kcal)</Text>
-              <Text>Umidade (%)</Text>
-              <Text>Potássio (mg)</Text>
-              <Text>Gorduras Saturadas(mg)</Text>
-              <Text>Monoinsaturadas (mg)</Text>
-              <Text>Ferro (mg)</Text>
-            </View>
-            <View>
-              <Text style={{ color: "green" }}>0.0</Text>
-              <Text style={{ color: "green" }}>0.0</Text>
-              <Text style={{ color: "green" }}>0.0</Text>
-              <Text style={{ color: "green" }}>0.0</Text>
-              <Text style={{ color: "green" }}>0.0</Text>
-              <Text style={{ color: "green" }}>0.0</Text>
-            </View>
-            <View>
-              <Text style={{ color: "blue" }}>0.0</Text>
-              <Text style={{ color: "blue" }}>0.0</Text>
-              <Text style={{ color: "blue" }}>0.0</Text>
-              <Text style={{ color: "blue" }}>0.0</Text>
-              <Text style={{ color: "blue" }}>0.0</Text>
-              <Text style={{ color: "blue" }}>0.0</Text>
-            </View>
-          </View>
-        </ScrollView>
+          />
 
-        <FoodModal
-          closeModal={hideFoodModal}
-          visible={isFoodModalVisible}
-          handleItem={(prevData) => {
-            if (prevData !== undefined) {
-              console.log("id", prevData.id);
-              prevData.peso = weightValue.toString();
-              handleItem(prevData);
-            }
-          }}
-        />
-      </View>
+          <FoodModal
+            closeModal={hideFoodModal}
+            visible={isFoodModalVisible}
+            handleItem={(prevData) => {
+              if (prevData !== undefined) {
+                // Alert.alert("Item adicionado");
+                handleItem(prevData);
+              }
+            }}
+          />
+        </View>
+      ) : (
+        <View></View>
+      )}
     </View>
   );
 };

@@ -32,11 +32,10 @@ const style = StyleSheet.create({
   text: {
     fontSize: 20,
     fontWeight: "bold",
-    color: theme.secodaryColor,
+    color: theme.thirdaryColor,
   },
   nutrients: {
     flexDirection: "row",
-    justifyContent: "space-evenly",
     backgroundColor: theme.primaryColor,
     paddingHorizontal: 20,
     paddingVertical: 5,

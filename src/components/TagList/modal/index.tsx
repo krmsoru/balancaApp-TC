@@ -1,11 +1,11 @@
 import { Modal, View, Text, Pressable, TouchableOpacity } from "react-native";
-import { foodData } from "../../../types";
+import { itemData } from "../../../types";
 import { FC } from "react";
 import style from "./styles";
 
 interface modalProps {
   visible: boolean;
-  item: foodData | undefined;
+  item: itemData | undefined;
   closeModal: () => void;
 }
 
@@ -16,13 +16,16 @@ const InfoModal: FC<modalProps> = (props) => {
     <Modal visible={visible} transparent={true} animationType="slide">
       <View style={style.container}>
         {item ? (
-          <TouchableOpacity onPress={closeModal} onLongPress={closeModal} style={style.item}>
+          <TouchableOpacity
+            onPress={closeModal}
+            onLongPress={closeModal}
+            style={style.item}
+          >
             <View
               style={{
-                paddingVertical:10,
+                paddingVertical: 10,
                 paddingHorizontal: 20,
                 flexDirection: "column",
-                justifyContent: "space-evenly",
               }}
             >
               <Text style={style.title}>{item.nome}</Text>
@@ -32,6 +35,7 @@ const InfoModal: FC<modalProps> = (props) => {
             <View style={style.nutrients}>
               <View style={{ alignItems: "flex-start" }}>
                 <Text style={style.text}>Peso Inserido</Text>
+                <Text style={style.text}>Umidade(%)</Text>
                 <Text style={style.text}>Energia(kcal)</Text>
                 <Text style={style.text}>Proteina</Text>
                 <Text style={style.text}>Colesterol(mg):</Text>
@@ -48,6 +52,7 @@ const InfoModal: FC<modalProps> = (props) => {
               </View>
               <View style={{ alignItems: "flex-end" }}>
                 <Text style={style.text}>{item.peso}</Text>
+                <Text style={style.text}>{item.umidade}</Text>
                 <Text style={style.text}>{item.energia_kcal}</Text>
                 <Text style={style.text}>{item.proteina_g}</Text>
                 <Text style={style.text}>{item.colesterol_mg}</Text>

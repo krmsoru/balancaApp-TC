@@ -1,28 +1,29 @@
-export interface foodData {
-  id: string;
-  nome: string
-  peso: string | null;
-  descricao: string | null;
-  umidade: string;
-  energia_kcal: string | null;
-  proteina_g: string | null;
-  colesterol_mg: string | null;
-  carboidrato_g: string | null;
-  fibra_g: string | null;
-  calcio_mg: string | null;
-  ferro_mg: string | null;
-  sodio_mg: string | null;
-  potassio_mg: string | null;
-  vitaminaC_mg: string | null;
-  saturados_g: string | null;
-  monoinsaturados_g: string | null;
-  poliinsaturados_g: string | null;
+export interface itemData {
+  id: string ;
+  nome: string ;
+  peso: number | undefined;
+  descricao: string ;
+  umidade: string ;
+  energia_kcal: string ;
+  proteina_g: string ;
+  colesterol_mg: string ;
+  carboidrato_g: string ;
+  fibra_g: string ;
+  calcio_mg: string ;
+  ferro_mg: string ;
+  sodio_mg: string ;
+  potassio_mg: string ;
+  vitaminaC_mg: string ;
+  saturados_g: string ;
+  monoinsaturados_g: string ;
+  poliinsaturados_g: string ;
 }
 
-export const fooditem: foodData[] = [
+
+export const foodData: itemData[] = [
   {
     id: "1",
-    peso: "0.42",
+    peso: 0.42,
     nome: "Abacaxi",
     descricao: "fruta",
     umidade: "23",
@@ -42,7 +43,7 @@ export const fooditem: foodData[] = [
   },
   {
     id: "2",
-    peso: "0.42",
+    peso: 0.42,
     nome: "Maçã",
     descricao: "fruta",
     umidade: "23",

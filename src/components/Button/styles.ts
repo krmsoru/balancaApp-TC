@@ -25,7 +25,7 @@ const style = StyleSheet.create({
   text: {
     fontSize: 18,
     fontWeight: "bold",
-    color: theme.thirdaryColor,
+    color: theme.neutralColor,
   },
   text_err: {
     fontSize: 18,

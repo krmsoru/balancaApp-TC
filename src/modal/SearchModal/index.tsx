@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, memo } from "react";
 import {
   Modal,
   SafeAreaView,
@@ -11,121 +11,132 @@ import {
 } from "react-native";
 import style from "./styles";
 import Button from "../../components/Button";
-import { foodData } from "../../types";
+import { itemData } from "../../types";
 
 type FoodModalProps = {
   visible: boolean;
   closeModal: () => void;
-  handleItem: (item: foodData) => void;
+  handleItem: (item: itemData) => void;
 };
 
 type ItemProps = {
-  item: foodData;
+  item: itemData;
   onPress: () => void;
   onLongPress: () => void;
   verifyId: string;
 };
 
-const Item = ({ item, onPress, onLongPress, verifyId }: ItemProps) => (
+const Item = memo(({ item, onPress, onLongPress, verifyId }: ItemProps) => (
   <TouchableOpacity
     onPress={onPress}
     onLongPress={onLongPress}
-    style={[style.item, { borderWidth: item.id === verifyId ? 2 : 0 }]}
+    style={[style.item, { borderWidth: item.id === verifyId ? 3 : 0 }]}
   >
     <Text style={[style.itemTitle]}>{item.nome}</Text>
-    <Text style={[style.itemTitle]}>{item.descricao}</Text>
+    <Text style={[style.itemSubTitle, { opacity: 0.7 }]}>{item.descricao}</Text>
 
     {item.id === verifyId ? (
-      <View>
-        <View style={style.innerItem}>
-          <View style={style.innerItem}>
-            <Text style={style.innerItemText}>Umidade:</Text>
-            <Text style={style.innerItemText}>{item.umidade} %</Text>
-          </View>
-          <View style={style.innerItem}>
-            <Text style={style.innerItemText}>Energia:</Text>
-            <Text style={style.innerItemText}>{item.energia_kcal} kcal</Text>
-          </View>
+      <View style={style.itemContainer}>
+        <View style={{ alignItems: "flex-start" }}>
+        <Text style={{ fontWeight: "bold", fontSize: 16, color: "#fff" }}>
+            Umidade(%)
+          </Text>
+          <Text style={{ fontWeight: "bold", fontSize: 16, color: "#fff" }}>
+            Energia(kcal)
+          </Text>
+          <Text style={{ fontWeight: "bold", fontSize: 16, color: "#fff" }}>
+            Proteina
+          </Text>
+          <Text style={{ fontWeight: "bold", fontSize: 16, color: "#fff" }}>
+            Colesterol(mg):
+          </Text>
+          <Text style={{ fontWeight: "bold", fontSize: 16, color: "#fff" }}>
+            Carboidrato g:
+          </Text>
+          <Text style={{ fontWeight: "bold", fontSize: 16, color: "#fff" }}>
+            Fibra(g)
+          </Text>
+          <Text style={{ fontWeight: "bold", fontSize: 16, color: "#fff" }}>
+            calcio(mg)
+          </Text>
+          <Text style={{ fontWeight: "bold", fontSize: 16, color: "#fff" }}>
+            Ferro(mg)
+          </Text>
+          <Text style={{ fontWeight: "bold", fontSize: 16, color: "#fff" }}>
+            Sódio(mg)
+          </Text>
+          <Text style={{ fontWeight: "bold", fontSize: 16, color: "#fff" }}>
+            Potássio(mg)
+          </Text>
+          <Text style={{ fontWeight: "bold", fontSize: 16, color: "#fff" }}>
+            Vitamina C(mg)
+          </Text>
+          <Text style={{ fontWeight: "bold", fontSize: 16, color: "#fff" }}>
+            Saturados(g)
+          </Text>
+          <Text style={{ fontWeight: "bold", fontSize: 16, color: "#fff" }}>
+            Monoinsaturados(g)
+          </Text>
+          <Text style={{ fontWeight: "bold", fontSize: 16, color: "#fff" }}>
+            Poliinsaturados(g)
+          </Text>
         </View>
-
-        <View style={style.innerItem}>
-          <View style={style.innerItem}>
-            <Text style={style.innerItemText}>Proteína:</Text>
-            <Text style={style.innerItemText}>{item.proteina_g} g</Text>
-          </View>
-
-          <View style={style.innerItem}>
-            <Text style={style.innerItemText}>Colesterol:</Text>
-            <Text style={style.innerItemText}>{item.colesterol_mg} mg</Text>
-          </View>
-        </View>
-
-        <View style={style.innerItem}>
-          <View style={style.innerItem}>
-            <Text style={style.innerItemText}>Carboidrato:</Text>
-            <Text style={style.innerItemText}>{item.carboidrato_g}</Text>
-          </View>
-
-          <View style={style.innerItem}>
-            <Text style={style.innerItemText}>Fibra:</Text>
-            <Text style={style.innerItemText}>{item.fibra_g}</Text>
-          </View>
-        </View>
-        <View style={style.innerItem}>
-          <View style={style.innerItem}>
-            <Text style={style.innerItemText}>Calcio:</Text>
-            <Text style={style.innerItemText}>{item.calcio_mg}</Text>
-          </View>
-
-          <View style={style.innerItem}>
-            <Text style={style.innerItemText}>Ferro:</Text>
-            <Text style={style.innerItemText}>{item.ferro_mg} mg </Text>
-          </View>
-        </View>
-        <View style={style.innerItem}>
-          <View style={style.innerItem}>
-            <Text style={style.innerItemText}>Sódio:</Text>
-            <Text style={style.innerItemText}>{item.sodio_mg} mg</Text>
-          </View>
-          <View style={style.innerItem}>
-            <Text style={style.innerItemText}>Potássio:</Text>
-            <Text style={style.innerItemText}>{item.potassio_mg} mg</Text>
-          </View>
-        </View>
-        <View style={style.innerItem}>
-          <View style={style.innerItem}>
-            <Text style={style.innerItemText}>Vitamina C:</Text>
-            <Text style={style.innerItemText}>{item.vitaminaC_mg} mg</Text>
-          </View>
-          <View style={style.innerItem}>
-            <Text style={style.innerItemText}>Saturados:</Text>
-            <Text style={style.innerItemText}>{item.saturados_g} g</Text>
-          </View>
-        </View>
-
-        <View style={style.innerItem}>
-          <View style={style.innerItem}>
-            <Text style={style.innerItemText}>Monoinsaturados:</Text>
-            <Text style={style.innerItemText}>{item.monoinsaturados_g}g</Text>
-          </View>
-
-          <View style={style.innerItem}>
-            <Text style={style.innerItemText}>Poliinsaturados:</Text>
-            <Text style={style.innerItemText}>{item.poliinsaturados_g} g</Text>
-          </View>
+        <View style={{ alignItems: "flex-end" }}>
+        <Text style={{ fontWeight: "bold", fontSize: 16, color: "#fff" }}>
+            {item.umidade}
+          </Text>
+          <Text style={{ fontWeight: "bold", fontSize: 16, color: "#fff" }}>
+            {item.energia_kcal}
+          </Text>
+          <Text style={{ fontWeight: "bold", fontSize: 16, color: "#fff" }}>
+            {item.proteina_g}
+          </Text>
+          <Text style={{ fontWeight: "bold", fontSize: 16, color: "#fff" }}>
+            {item.colesterol_mg}
+          </Text>
+          <Text style={{ fontWeight: "bold", fontSize: 16, color: "#fff" }}>
+            {item.carboidrato_g}
+          </Text>
+          <Text style={{ fontWeight: "bold", fontSize: 16, color: "#fff" }}>
+            {item.fibra_g}
+          </Text>
+          <Text style={{ fontWeight: "bold", fontSize: 16, color: "#fff" }}>
+            {item.calcio_mg}
+          </Text>
+          <Text style={{ fontWeight: "bold", fontSize: 16, color: "#fff" }}>
+            {item.ferro_mg}
+          </Text>
+          <Text style={{ fontWeight: "bold", fontSize: 16, color: "#fff" }}>
+            {item.sodio_mg}
+          </Text>
+          <Text style={{ fontWeight: "bold", fontSize: 16, color: "#fff" }}>
+            {item.poliinsaturados_g}
+          </Text>
+          <Text style={{ fontWeight: "bold", fontSize: 16, color: "#fff" }}>
+            {item.vitaminaC_mg}
+          </Text>
+          <Text style={{ fontWeight: "bold", fontSize: 16, color: "#fff" }}>
+            {item.saturados_g}
+          </Text>
+          <Text style={{ fontWeight: "bold", fontSize: 16, color: "#fff" }}>
+            {item.monoinsaturados_g}
+          </Text>
+          <Text style={{ fontWeight: "bold", fontSize: 16, color: "#fff" }}>
+            {item.poliinsaturados_g}
+          </Text>
         </View>
       </View>
     ) : (
       <View></View>
     )}
   </TouchableOpacity>
-);
+));
 
 const FoodModal: FC<FoodModalProps> = (props) => {
   const { visible, closeModal, handleItem } = props;
   const [inputText, setInputText] = useState<string>("");
   const [selectedId, setSelectedId] = useState<string>("");
-  const [apiResponse, setApiResponse] = useState<foodData[] | null>();
+  const [apiResponse, setApiResponse] = useState<itemData[] | null>();
 
   function FetchFoodData(value: string) {
     const url = `https://apibalancadavida.azurewebsites.net/api/Food/ByName/${value}`;
@@ -151,19 +162,17 @@ const FoodModal: FC<FoodModalProps> = (props) => {
     setApiResponse(toJSON);
   };
 
-  const renderItem = ({ item }: { item: foodData }) => {
-    return (
-      <Item
-        verifyId={selectedId}
-        item={item}
-        onLongPress={() => {
-          // Alert.alert("LongPress", item.nome);
-          handleItem(item);
-        }}
-        onPress={() => setSelectedId(item.id)}
-      />
-    );
-  };
+  const renderItem = ({ item }: { item: itemData }) => (
+    <Item
+      key={item.id}
+      verifyId={selectedId}
+      item={item}
+      onLongPress={() => {
+        handleItem(item);
+      }}
+      onPress={() => setSelectedId(item.id)}
+    />
+  );
 
   return (
     <Modal animationType="slide" transparent={false} visible={visible}>
@@ -179,7 +188,7 @@ const FoodModal: FC<FoodModalProps> = (props) => {
               placeholder="Digite o nome do alimento"
               onChangeText={(evt) => handleInput(evt)}
             />
-            <Button title="Buscar" onPress={handleSearch} btnclass={1}></Button>
+            <Button title="Buscar" onPress={()=>inputText.length>3?handleSearch():Alert.alert('Deve conter ao menos 3 letras')} btnclass={1}></Button>
           </View>
           {/* <RenderList /> */}
           <View style={style.container}>
@@ -195,8 +204,8 @@ const FoodModal: FC<FoodModalProps> = (props) => {
           <Button
             title="Fechar"
             onPress={() => {
-              setApiResponse(null);
               setSelectedId("");
+              setInputText("");
               closeModal();
             }}
             btnclass={2}

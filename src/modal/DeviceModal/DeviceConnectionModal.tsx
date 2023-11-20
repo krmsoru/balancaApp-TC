@@ -5,11 +5,11 @@ import {
   Modal,
   SafeAreaView,
   Text,
-  StyleSheet,
   TouchableOpacity,
 } from "react-native";
 import { Device } from "react-native-ble-plx";
-
+import style from "./styles";
+import Button from "../../components/Button";
 type DeviceModalListItemProps = {
   item: ListRenderItemInfo<Device>;
   connectToPeripheral: (device: Device) => void;
@@ -32,9 +32,11 @@ const DeviceModalListItem: FC<DeviceModalListItemProps> = (props) => {
   }, [closeModal, connectToPeripheral, item.item]);
 
   return (
-    <TouchableOpacity onPress={connectAndCloseModal} style={modalStyle.Button}>
-      <Text style={modalStyle.ButtonText}>{item.item.name}</Text>
-    </TouchableOpacity>
+    <Button
+      title={item.item.name !== null ? item.item.name : ""}
+      onPress={connectAndCloseModal}
+      btnclass={1}
+    ></Button>
   );
 };
 
@@ -56,82 +58,24 @@ const DeviceModal: FC<DeviceModalProps> = (props) => {
 
   return (
     <Modal
-      style={modalStyle.modalContainer}
+      style={style.modal}
       animationType="slide"
       transparent={false}
       visible={visible}
     >
-      <SafeAreaView style={modalStyle.modalTitle}>
-        <Text style={modalStyle.modalTitleText}>
+      <SafeAreaView style={style.Title}>
+        <Text style={style.TitleText}>
           Escolha um dispositivo para conectar-se
         </Text>
         <FlatList
-          contentContainerStyle={modalStyle.modalFlatlistContiner}
+          contentContainerStyle={{}}
           data={devices}
           renderItem={renderDeviceModalListItem}
         />
-        <TouchableOpacity
-          style={[
-            modalStyle.Button,
-            {
-              backgroundColor: "white",
-              borderColor: "#FF6060",
-              borderWidth: 4,
-            },
-          ]}
-          onPress={closeModal}
-        >
-          <Text style={[modalStyle.ButtonText, { color: "#FF6060" }]}>
-            Fechar
-          </Text>
-        </TouchableOpacity>
+        <Button btnclass={1} onPress={closeModal} title="Fechar" />
       </SafeAreaView>
     </Modal>
   );
 };
-
-const modalStyle = StyleSheet.create({
-  modalContainer: {
-    flex: 1,
-    backgroundColor: "#f2f2f2",
-  },
-  modalFlatlistContiner: {
-    flex: 1,
-    justifyContent: "center",
-  },
-  modalCellOutline: {
-    borderWidth: 1,
-    borderColor: "black",
-    alignItems: "center",
-    marginHorizontal: 20,
-    paddingVertical: 15,
-    borderRadius: 8,
-  },
-  modalTitle: {
-    flex: 1,
-    backgroundColor: "#f2f2f2",
-  },
-  modalTitleText: {
-    marginTop: 40,
-    fontSize: 30,
-    fontWeight: "bold",
-    marginHorizontal: 20,
-    textAlign: "center",
-  },
-  Button: {
-    backgroundColor: "#FF6060",
-    justifyContent: "center",
-    alignItems: "center",
-    height: 50,
-    marginHorizontal: 20,
-    marginBottom: 5,
-    borderRadius: 8,
-  },
-  ButtonText: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "white",
-  },
-});
 
 export default DeviceModal;

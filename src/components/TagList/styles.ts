@@ -22,7 +22,9 @@ const style = StyleSheet.create({
     fontSize: 15,
     fontWeight: "bold",
     color: theme.primaryColor,
+  
   },
+  
 });
 
 export default style;
