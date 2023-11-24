@@ -116,7 +116,7 @@ function useBLE(): BluetoothLowEnergyApi {
       bleManager.stopDeviceScan();
       startStreamingData(deviceConnection);
     } catch (e) {
-      console.log("FALHA AO CONECTAR", e);
+      console.log("ERRO -> FALHA AO CONECTAR", e);
     }
   };
 
@@ -128,7 +128,7 @@ function useBLE(): BluetoothLowEnergyApi {
         setWeightValue(0);
       }
     } catch (error) {
-      console.log(`ERRO: ${error}`);
+      console.log(`ERRO ->  ${error}`);
     }
   };
 
@@ -141,18 +141,18 @@ function useBLE(): BluetoothLowEnergyApi {
         console.error(error);
         return -1;
       } else if (!characteristic?.value) {
-        console.log("No Data was received");
+        console.log("ERRO -> NENHUM DADO RECEBIDO");
         return -1;
       }
       const weightData: string = base64.decode(characteristic.value);
       const weightValue: number = parseFloat(weightData);
 
       if (!isNaN(weightValue)) {
-        console.log("Weight value received:", weightValue);
+        console.log("VALOR PESO RECEBIDO ->", weightValue);
 
         setWeightValue(weightValue);
       } else {
-        console.error("Invalid weight data received:", weightData);
+        console.error("ERRO -> VALOR INVALIDO DE PESO RECEBIDO", weightData);
       }
     } catch (error) {
       console.log(`ERRO: ${error}`);
@@ -169,7 +169,7 @@ function useBLE(): BluetoothLowEnergyApi {
         ).then((Characteristic:Characteristic)=>console.log(Characteristic.value))
       }
     } catch (error) {
-        console.log("Erro ao enviar resposta")
+        console.log("ERRO -> POST REQUEST")
       
     }
   }
@@ -183,10 +183,10 @@ function useBLE(): BluetoothLowEnergyApi {
           onUpdate
         );
       } else {
-        console.log("Nenhum Dispositivo Conectado");
+        console.log("ERRO -> DISPOSITIVO NAO CONECTADO");
       }
     } catch (error) {
-      console.log(`ERRO: ${error}`);
+      console.log(`ERRO -> ${error}`);
     }
   };
 

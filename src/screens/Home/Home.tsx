@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { Alert, ScrollView, Text, View } from "react-native";
+import React, { useState } from "react";
+import { Text, View } from "react-native";
 import DeviceModal from "../../modal/DeviceModal/DeviceConnectionModal";
-import FoodModal from "../../modal/SearchModal";
+import FoodModal from "../../modal/SearchModal/searchModal";
 import useBLE from "../../hooks/useBle";
 import TagList from "../../components/TagList";
 import Button from "../../components/Button";
 import style from "./styles";
 import { Feather } from "@expo/vector-icons";
-import { itemData, foodData } from "../../types";
+import { itemData } from "../../types";
 
 const Home = () => {
   const {
@@ -18,14 +18,15 @@ const Home = () => {
     connectedDevice,
     weightValue,
     disconnectFromDevice,
-    postRequest
+    postRequest,
   } = useBLE();
 
-  const [isDeviceModalVisible, setIsDeviceModalVisible] =
-    useState<boolean>(false);
+  const [isDeviceModalVisible, setIsDeviceModalVisible] =useState<boolean>(false);
   const [isFoodModalVisible, setIsFoodModalVisible] = useState<boolean>(false);
-  const [Data, setData] = useState<any[]>([]);
+  const [selectedItems, setSelectedItems] = useState<any[]>([]);
+  
   // const weightValue = 234;
+
   const scanForDevices = async () => {
     const isPermissionsEnabled = await requestPermissions();
     if (isPermissionsEnabled) {
@@ -50,17 +51,17 @@ const Home = () => {
   };
   const handleItem = (obj: itemData) => {
     if (obj.id != undefined) {
-      const data = Data.filter((item) => item.id !== obj.id);
+      const data = selectedItems.filter((item) => item.id !== obj.id);
       const Item = nutrientsMath(obj, weightValue);
       const newData = [...data, Item];
-      setData(newData);
+      setSelectedItems(newData);
       hideFoodModal();
     }
   };
   const nutrientsMath = (item: itemData, peso: number) => {
     const nutrients = (itemProperty: string) => {
       if (!Number.isNaN(Number(itemProperty))) {
-        return ((Number(itemProperty) * peso) / 100).toFixed(2);
+        return ((Number(itemProperty) * peso) / 100).toFixed(1);
       } else {
         return itemProperty;
       }
@@ -88,27 +89,6 @@ const Home = () => {
     };
     return res;
   };
-
-  class Timer {
-    private timerId: NodeJS.Timeout | null = null;
-
-    startTimer(duration: number, callback: () => void) {
-      this.timerId = setTimeout(() => {
-        callback();
-        this.stopTimer();
-      }, duration);
-    }
-
-    stopTimer() {
-      if (this.timerId !== null) {
-        clearTimeout(this.timerId);
-        this.timerId = null;
-        console.log("Timer stopped.");
-      } else {
-        console.log("No timer is currently running.");
-      }
-    }
-  }
 
   return (
     <View style={style.container}>
@@ -154,14 +134,12 @@ const Home = () => {
               />
             </View>
             <View style={connectedDevice ? { width: "50%" } : {}}>
-              {connectedDevice ? (
+              {connectedDevice && (
                 <Button
                   btnclass={1}
                   onPress={() => postRequest(connectedDevice)}
                   title="Calibrar"
                 />
-              ) : (
-                <Text></Text>
               )}
             </View>
           </View>
@@ -174,36 +152,32 @@ const Home = () => {
         </View>
       </View>
       {/* ----------------- ALIMENTOS--------------------- */}
-      {connectedDevice ? (
-        <View style={style.card}>
-          <Button
-            title="Alimentos"
-            onPress={openFoodModal}
-            btnclass={1}
-          ></Button>
 
+      <View style={style.card}>
+        <Button
+          title="Buscar Alimentos"
+          onPress={openFoodModal}
+          btnclass={1}
+        ></Button>
+        {selectedItems.length > 0 && (
           <TagList
-            data={Data}
+            data={selectedItems}
             onLongPress={(item) => {
-              const newData = Data.filter((obj) => obj.id !== item.id);
-              setData(newData);
+              const newData = selectedItems.filter((obj) => obj.id !== item.id);
+              setSelectedItems(newData);
             }}
           />
-
-          <FoodModal
-            closeModal={hideFoodModal}
-            visible={isFoodModalVisible}
-            handleItem={(prevData) => {
-              if (prevData !== undefined) {
-                // Alert.alert("Item adicionado");
-                handleItem(prevData);
-              }
-            }}
-          />
-        </View>
-      ) : (
-        <View></View>
-      )}
+        )}
+        <FoodModal
+          closeModal={hideFoodModal}
+          visible={isFoodModalVisible}
+          handleItem={(prevData) => {
+            if (prevData !== undefined) {
+              handleItem(prevData);
+            }
+          }}
+        />
+      </View>
     </View>
   );
 };

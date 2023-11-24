@@ -1,19 +1,29 @@
-function useFoodsApi() {
+import { useState } from "react";
+import { Alert } from "react-native";
+
+interface useAPI {
+  apiRequest?: any[];
+  FetchFoodData: (value: string) => void;
+}
+
+export default function useAPI(): useAPI {
+  const [apiRequest, setApiRequest] = useState<any[]>();
+
   function FetchFoodData(value: string) {
     const url = `https://apibalancadavida.azurewebsites.net/api/Food/ByName/${value}`;
     return fetchAsync(url);
   }
 
   async function fetchAsync(url: string) {
-    var resposta = await fetch(url);
-    if (resposta.ok) {
-      return await resposta.text();
+    var response = await fetch(url);
+    if (response.ok) {
+      const data = await response.text();
+      setApiRequest(JSON.parse(data))
+
     } else {
-      return "Erro na API";
+      Alert.alert('ERRO API','Erro ao se comunicar com a API.')
     }
   }
 
-  return { FetchFoodData };
+  return { apiRequest, FetchFoodData };
 }
-
-export default useFoodsApi;

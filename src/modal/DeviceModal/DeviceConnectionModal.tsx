@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   Text,
   TouchableOpacity,
+  View,
 } from "react-native";
 import { Device } from "react-native-ble-plx";
 import style from "./styles";
@@ -64,14 +65,16 @@ const DeviceModal: FC<DeviceModalProps> = (props) => {
       visible={visible}
     >
       <SafeAreaView style={style.Title}>
-        <Text style={style.TitleText}>
+        <Text style={[style.TitleText, { marginBottom: 50}]}>
           Escolha um dispositivo para conectar-se
         </Text>
-        <FlatList
-          contentContainerStyle={{}}
-          data={devices}
-          renderItem={renderDeviceModalListItem}
-        />
+        <View style={{ flex: 1 }}>
+          <FlatList
+            contentContainerStyle={{}}
+            data={devices}
+            renderItem={renderDeviceModalListItem}
+          />
+        </View>
         <Button btnclass={1} onPress={closeModal} title="Fechar" />
       </SafeAreaView>
     </Modal>
