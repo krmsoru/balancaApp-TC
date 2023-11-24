@@ -24,7 +24,7 @@ interface BluetoothLowEnergyApi {
   connectedDevice: Device | null;
   allDevices: Device[];
   weightValue: number;
-  postRequest: (deviceid:Device)=> void;
+  postRequest: (deviceid: Device) => void;
 }
 
 function useBLE(): BluetoothLowEnergyApi {
@@ -148,7 +148,7 @@ function useBLE(): BluetoothLowEnergyApi {
       const weightValue: number = parseFloat(weightData);
 
       if (!isNaN(weightValue)) {
-        console.log("VALOR PESO RECEBIDO ->", weightValue);
+        // console.log("VALOR PESO RECEBIDO ->", weightValue);
 
         setWeightValue(weightValue);
       } else {
@@ -159,20 +159,23 @@ function useBLE(): BluetoothLowEnergyApi {
     }
   };
 
-  const postRequest = (device:Device)=>{
+  const postRequest = (device: Device) => {
     try {
-      if(device){
-        device.writeCharacteristicWithResponseForService(
-          UUID,
-          CHARACTERISTIC_REQUEST,
-          base64.encode('G')
-        ).then((Characteristic:Characteristic)=>console.log(Characteristic.value))
+      if (device) {
+        device
+          .writeCharacteristicWithResponseForService(
+            UUID,
+            CHARACTERISTIC_REQUEST,
+            base64.encode("G")
+          )
+          .then((Characteristic: Characteristic) =>
+            console.log(Characteristic.value)
+          );
       }
     } catch (error) {
-        console.log("ERRO -> POST REQUEST")
-      
+      console.log("ERRO -> POST REQUEST");
     }
-  }
+  };
 
   const startStreamingData = async (device: Device) => {
     try {
@@ -198,7 +201,7 @@ function useBLE(): BluetoothLowEnergyApi {
     connectedDevice,
     disconnectFromDevice,
     weightValue: weightValue,
-    postRequest
+    postRequest,
   };
 }
 

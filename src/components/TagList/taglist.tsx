@@ -3,6 +3,7 @@ import style from "./styles";
 import { itemData } from "../../types";
 import { useEffect, useState } from "react";
 import InfoModal from "./modal";
+import TextInfo from "../TextInfo/textinfo";
 
 interface tagListProps {
   data: itemData[];
@@ -44,7 +45,7 @@ export default function TagList({ data, onLongPress }: tagListProps) {
         const soma = (item1: string, item2: string) => {
           if (Number.isNaN(Number(item1)) || Number.isNaN(Number(item2)))
             return item1;
-          return (Number(item1) + Number(item2)).toFixed(2);
+          return (Number(item1) + Number(item2)).toFixed(1);
         };
 
         res.umidade = soma(res.umidade, item.umidade);
@@ -102,53 +103,25 @@ export default function TagList({ data, onLongPress }: tagListProps) {
 
   return (
     <View style={style.container}>
-      <FlatList
-        horizontal
-        data={data}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => renderItem({ item, onLongPress })}
-      />
-      <View>
-        <View>
-          <Text style = {[style.title,{fontWeight:"bold"}]}>{data.length > 0 ? total?.nome : ""}</Text>
-        </View>
-        {data.length > 0 ? (
-          <View style={{ flexDirection: "row" }}>
-            <View style={{ marginHorizontal: 10 }}>
-              <Text style={style.title}>Umidade(%):</Text>
-              <Text style={style.title}>Energia(kcal):</Text>
-              <Text style={style.title}>Proteína(g):</Text>
-              <Text style={style.title}>Colesterol(g):</Text>
-              <Text style={style.title}>Carboidrato:(g):</Text>
-              <Text style={style.title}>Fibra Alimentar:(g):</Text>
-              <Text style={style.title}>Calcio:(mg):</Text>
-              <Text style={style.title}>Sódio:(mg):</Text>
-              <Text style={style.title}>Potássio:(mg):</Text>
-              <Text style={style.title}>Vitamina C(mg):</Text>
-              <Text style={style.title}>Gorduras Saturadas(mg):</Text>
-              <Text style={style.title}>Gorduras Monoinsaturados(mg):</Text>
-              <Text style={style.title}>Gorduras Poliinsaturados(mg):</Text>
-            </View>
-            <View style={{ marginHorizontal: 10 }}>
-              <Text style={[style.title,{fontWeight:"bold"}]}>{total?.umidade}</Text>
-              <Text style={[style.title,{fontWeight:"bold"}]}>{total?.energia_kcal}</Text>
-              <Text style={[style.title,{fontWeight:"bold"}]}>{total?.proteina_g}</Text>
-              <Text style={[style.title,{fontWeight:"bold"}]}>{total?.colesterol_mg}</Text>
-              <Text style={[style.title,{fontWeight:"bold"}]}>{total?.carboidrato_g}</Text>
-              <Text style={[style.title,{fontWeight:"bold"}]}>{total?.fibra_g}</Text>
-              <Text style={[style.title,{fontWeight:"bold"}]}>{total?.calcio_mg}</Text>
-              <Text style={[style.title,{fontWeight:"bold"}]}>{total?.sodio_mg}</Text>
-              <Text style={[style.title,{fontWeight:"bold"}]}>{total?.potassio_mg}</Text>
-              <Text style={[style.title,{fontWeight:"bold"}]}>{total?.vitaminaC_mg}</Text>
-              <Text style={[style.title,{fontWeight:"bold"}]}>{total?.saturados_g}</Text>
-              <Text style={[style.title,{fontWeight:"bold"}]}>{total?.monoinsaturados_g}:</Text>
-              <Text style={[style.title,{fontWeight:"bold"}]}>{total?.poliinsaturados_g}</Text>
-            </View>
-          </View>
-        ) : (
-          <View></View>
-        )}
+      <View style={{ alignItems: "center" }}>
+        <FlatList
+          horizontal
+          data={data}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => renderItem({ item, onLongPress })}
+        />
       </View>
+
+      <View
+        style={{
+          alignItems: "center",
+          opacity: data.length > 0 ? 1 : 0.5,
+        }}
+      >
+        <Text style={[style.title, { fontSize: 30 }]}>TOTAL</Text>
+        <TextInfo item={total} />
+      </View>
+
       <InfoModal
         closeModal={closeModal}
         item={selectedItem}

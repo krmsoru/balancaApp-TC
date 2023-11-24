@@ -12,7 +12,7 @@ const style = StyleSheet.create({
     marginHorizontal: 10,
     marginVertical: 5,
     backgroundColor: theme.neutralColor,
-    paddingVertical: 10,
+    paddingVertical: 4,
     flexShrink: 1,
     flexGrow: 1,
     elevation: 3,

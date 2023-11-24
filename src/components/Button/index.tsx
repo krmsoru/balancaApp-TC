@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 
 interface buttonProps {
   title?: string;
@@ -20,7 +20,6 @@ export default function Button({
   return (
     <View>
       <TouchableOpacity
-      
         onLongPress={onLongPress}
         onPress={onPress}
         disabled={disabled}

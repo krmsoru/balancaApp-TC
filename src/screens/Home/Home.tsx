@@ -3,11 +3,14 @@ import { Text, View } from "react-native";
 import DeviceModal from "../../modal/DeviceModal/DeviceConnectionModal";
 import FoodModal from "../../modal/SearchModal/searchModal";
 import useBLE from "../../hooks/useBle";
-import TagList from "../../components/TagList";
+import TagList from "../../components/TagList/taglist";
 import Button from "../../components/Button";
 import style from "./styles";
 import { Feather } from "@expo/vector-icons";
 import { itemData } from "../../types";
+import { nutrientsMath } from "../../modules";
+
+
 
 const Home = () => {
   const {
@@ -21,10 +24,11 @@ const Home = () => {
     postRequest,
   } = useBLE();
 
-  const [isDeviceModalVisible, setIsDeviceModalVisible] =useState<boolean>(false);
+  const [isDeviceModalVisible, setIsDeviceModalVisible] =
+    useState<boolean>(false);
   const [isFoodModalVisible, setIsFoodModalVisible] = useState<boolean>(false);
   const [selectedItems, setSelectedItems] = useState<any[]>([]);
-  
+
   // const weightValue = 234;
 
   const scanForDevices = async () => {
@@ -57,37 +61,6 @@ const Home = () => {
       setSelectedItems(newData);
       hideFoodModal();
     }
-  };
-  const nutrientsMath = (item: itemData, peso: number) => {
-    const nutrients = (itemProperty: string) => {
-      if (!Number.isNaN(Number(itemProperty))) {
-        return ((Number(itemProperty) * peso) / 100).toFixed(1);
-      } else {
-        return itemProperty;
-      }
-    };
-
-    const res = {
-      id: item?.id,
-      peso: peso,
-      nome: item?.nome,
-      descricao: item?.descricao,
-      umidade: nutrients(item?.umidade),
-      energia_kcal: nutrients(item?.energia_kcal),
-      proteina_g: nutrients(item?.proteina_g),
-      colesterol_mg: nutrients(item?.colesterol_mg),
-      carboidrato_g: nutrients(item?.carboidrato_g),
-      fibra_g: nutrients(item?.fibra_g),
-      calcio_mg: nutrients(item?.calcio_mg),
-      ferro_mg: nutrients(item?.ferro_mg),
-      sodio_mg: nutrients(item?.sodio_mg),
-      potassio_mg: nutrients(item?.potassio_mg),
-      vitaminaC_mg: nutrients(item?.vitaminaC_mg),
-      saturados_g: nutrients(item?.saturados_g),
-      monoinsaturados_g: nutrients(item?.monoinsaturados_g),
-      poliinsaturados_g: nutrients(item?.poliinsaturados_g),
-    };
-    return res;
   };
 
   return (
@@ -153,21 +126,22 @@ const Home = () => {
       </View>
       {/* ----------------- ALIMENTOS--------------------- */}
 
-      <View style={style.card}>
+      <View style={[style.card, { opacity: connectedDevice ? 1 : 0.7 }]}>
         <Button
           title="Buscar Alimentos"
           onPress={openFoodModal}
           btnclass={1}
+          disabled={connectedDevice ? false : true}
         ></Button>
-        {selectedItems.length > 0 && (
-          <TagList
-            data={selectedItems}
-            onLongPress={(item) => {
-              const newData = selectedItems.filter((obj) => obj.id !== item.id);
-              setSelectedItems(newData);
-            }}
-          />
-        )}
+
+        <TagList
+          data={selectedItems}
+          onLongPress={(item) => {
+            const newData = selectedItems.filter((obj) => obj.id !== item.id);
+            setSelectedItems(newData);
+          }}
+        />
+
         <FoodModal
           closeModal={hideFoodModal}
           visible={isFoodModalVisible}
