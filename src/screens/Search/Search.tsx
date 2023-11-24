@@ -4,6 +4,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  StatusBar,
 } from "react-native";
 import useAPI from "../../hooks/useApi";
 import style from "./styles";
@@ -22,6 +23,10 @@ export default function Search() {
   const [selectedId, setSelectedId] = useState<string>("");
   const [selectedItems, setSelected] = useState<any[]>([]);
 
+  const isEnabled = () => {
+    if (inputText.length > 3) return false;
+    else return true;
+  };
   const handleItem = (obj: itemData) => {
     if (obj.id != undefined) {
       let data = selectedItems.filter((item) => item.id !== obj.id);
@@ -48,71 +53,64 @@ export default function Search() {
   );
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ height: "100%", gap: 20, padding: 10 }}>
       {/* ---------------------------BUSCA-------------------------------- */}
-      <View style={{ flex: 1, marginVertical: 30 }}>
-        <Text style={{ textAlign: "center", fontSize: 20, fontWeight: "bold" }}>
-          Buscar Alimentos
-        </Text>
-        <View style={{ flex: 1, width: "90%", alignItems: "center" }}>
+      <View style={{ height: "25%" }}>
+        <Text style={style.title}>Buscar Alimentos</Text>
+        <View style={{ alignItems: "center", gap: 20 }}>
           <TextInput
-            style={[style.input, { width: "95%" }]}
+            style={[style.input, { width: "80%" }]}
             keyboardType="web-search"
-            placeholder="alimento"
+            placeholder="pesquisar alimento..."
             onChangeText={(value) => setText(value)}
           />
+          <View style={{ flexDirection: "row" }}>
+            <TextInput
+              style={[style.input, { width: "40%" }]}
+              keyboardType="numeric"
+              placeholder="inserir peso"
+              onChangeText={(value) => setNumeric(Number(value))}
+            />
+            <Text style={style.title}>(g)</Text>
+          </View>
+          <TouchableOpacity
+            style={[style.button, { width: "80%"}]}
+            disabled={isEnabled()}
+            onPress={() => handleSearch()}
+          >
+            <Feather name="search" size={25} color={style.button.tintColor} />
+          </TouchableOpacity>
           <View
             style={{
-              flex: 1,
               flexDirection: "row",
               alignItems: "center",
               gap: 20,
             }}
-          >
-            <TextInput
-              style={[style.input, { flex: 1 }]}
-              keyboardType="numeric"
-              placeholder="peso"
-              onChangeText={(value) => setNumeric(Number(value))}
-            />
-            <TouchableOpacity
-              style={{
-                height: 50,
-                backgroundColor: "#4245",
-                borderRadius: 8,
-                flexDirection: "row",
-                alignItems: "center",
-                flex: 1,
-              }}
-              onPress={() => handleSearch()}
-            >
-              <Feather name="search" size={25} color={"#000"} />
-              <Text style={{ fontSize: 15, fontWeight: "bold" }}>
-                Pesquisar
-              </Text>
-            </TouchableOpacity>
-          </View>
+          ></View>
         </View>
       </View>
       {/* ------------------------ ITENS BUSCA---------------------------------- */}
-      <View style={{}}></View>
+      <View style={{ height: "35%" }}>
+        <FlatList
+          style={{ flex: 1, width: "100%" }}
+          data={apiRequest}
+          horizontal={true}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+          extraData={selectedId}
+        />
+      </View>
       {/* ------------------------- RESULTADOS ------------------------------------ */}
-      <FlatList
-        style={{ flex: 1, width: "100%", margin: 0 }}
-        data={apiRequest}
-        horizontal={true}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-        extraData={selectedId}
-        
-      />
-      <TagList
-        data={selectedItems}
-        onLongPress={(item) => {
-          let data = selectedItems.filter((obj) => obj.id !== item.id);
-          setSelected(data);
-        }}
-      />
+
+      <View style={{ height: "35%" }}>
+        <TagList
+          data={selectedItems}
+          onLongPress={(item) => {
+            let data = selectedItems.filter((obj) => obj.id !== item.id);
+            setSelected(data);
+          }}
+        ></TagList>
+      </View>
     </SafeAreaView>
   );
 }

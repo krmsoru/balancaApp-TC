@@ -7,10 +7,22 @@ const style = StyleSheet.create({
     borderRadius: 8,
     borderColor: theme.secodaryColor,
     fontSize: 20,
-    fontWeight: "500",
+    fontWeight: "bold",
+    textAlign: "center",
+    width: "60%",
   },
   button: {
-    color: theme.neutralColor,
+    padding: 15,
+    backgroundColor: theme.primaryColor,
+    borderRadius: 8,
+    alignItems: "center",
+    tintColor: theme.neutralColor,
+  },
+  title: {
+    fontWeight: "bold",
+    fontSize: 25,
+    color: theme.secodaryColor,
+    textAlign: "center",
   },
 });
 

@@ -28,7 +28,7 @@ const ItemInfo = memo(({ item, onPress, onLongPress, verifyId }: ItemProps) => (
           style={{
             flexDirection: "row",
             flex: 1,
-            justifyContent: "space-evenly",
+            justifyContent: "space-evenly",gap:5
           }}
         >
           <View style={{ alignItems: "flex-start" }}>
